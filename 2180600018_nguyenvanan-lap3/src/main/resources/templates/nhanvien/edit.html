@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa ca làm</title>
+    <th:block th:replace="layout::link-css"></th:block>
+</head>
+<body>
+<th:block th:replace="layout::header"></th:block>
+<div class="container">
+    <h1>Sửa ca làm</h1>
+    <form th:action="@{/nhanviens/edit}" th:object="${nhanvien}" method="post">
+        <div class="col-6 mb-3">
+            <label class="form-label" for="maNV">Mã nhân viên: </label>
+            <input class="form-control" type="text" th:field="*{maNV}" id="maNV" readonly>
+            <span class="text-danger" th:if="${#fields.hasErrors('maNV')}" th:errors="*{maNV}"></span>
+        </div>
+        <div class="col-6 mb-3">
+            <label class="form-label" for="tenNV">Tên nhân viên: </label>
+            <input class="form-control" type="text" th:field="*{tenNV}" id="tenNV">
+            <span class="text-danger" th:if="${#fields.hasErrors('tenNV')}" th:errors="*{tenNV}"></span>
+        </div>
+        <div class="col-6 mb-3">
+            <label class="form-label" for="maNV">Ca làm:</label>
+            <select class="form-control" th:field="*{maCa}">
+                <option th:each="phongban : ${phongbans}" th:value="${phongban.maCa}" th:text="${phongban.Ca}">Select Department</option>
+            </select>
+            <span class="text-danger" th:if="${#fields.hasErrors('maCa')}" th:errors="*{maCa}"></span>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Save">
+    </form>
+    <a th:href="@{/nhanviens}">Trở về trang chủ</a>
+</div>
+<th:block th:replace="layout::footer"></th:block>
+</body>
+</html>

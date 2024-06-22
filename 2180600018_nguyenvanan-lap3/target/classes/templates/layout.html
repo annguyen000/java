@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My App</title>
+    <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<header th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">HUTECH</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#" onclick="reloadPage()">Home</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="/nhanviens">Danh sách nhân viên</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/nhanviens/add">Thêm nhân viên</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container mt-4">
+    <h1 th:text="${title}">Danh Sách Ca Làm</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Mã NV</th>
+            <th>Tên NV</th>
+            <th>Mã Phòng</th>
+            <th>Hành Động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="nhanvien : ${nhanviens}">
+            <td th:text="${nhanvien.maNV}"></td>
+            <td th:text="${nhanvien.tenNV}"></td>
+            <td th:text="${nhanvien.maCa}"></td>
+            <td>
+                <a th:href="@{/nhanviens/edit/{maNV}(maNV=${nhanvien.maNV})}">Chỉnh sửa</a> |
+                <a th:href="@{/nhanviens/delete/{maNV}(maNV=${nhanvien.maNV})}"
+                   onclick="return confirm('Bạn có chắc chắn muốn xóa nhân viên này không?')">Xóa</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer th:fragment="footer">
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</footer>
+</body>
+</html>
